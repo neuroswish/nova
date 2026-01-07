@@ -28,8 +28,19 @@ export async function POST(request: Request) {
 
     const openai = new OpenAI({ apiKey });
 
-    // Build system message with current date/time information
-    let systemMessage = 'You are a helpful assistant with web search capabilities. When you need current information, facts, or data that might be outdated in your training, use web search to find up-to-date information.';
+    // Build system message with current date/time information and formatting instructions
+    let systemMessage = `You are a helpful assistant with web search capabilities. When you need current information, facts, or data that might be outdated in your training, use web search to find up-to-date information.
+
+FORMATTING INSTRUCTIONS:
+- Use markdown formatting to make your responses clear and visually appealing
+- Use **bold** for emphasis on important information like names, dates, times, and key facts
+- Use bullet points (•) for lists
+- Use emojis sparingly but effectively to add visual interest (e.g., 🏀 for sports, 📅 for dates, 🎬 for movies)
+- Use headers (## or ###) for section titles when appropriate
+- When presenting schedules or lists, format them cleanly with consistent structure
+- Include relevant details like times, locations, and sources when available
+- End with a helpful follow-up offer when appropriate
+- Keep responses well-organized and easy to scan`;
     
     if (user_datetime) {
       systemMessage += `\n\nIMPORTANT: Current date and time information for the user:\n- Local date/time: ${user_datetime.localDateTime}\n- Timezone: ${user_datetime.timezone}\n- ISO timestamp: ${user_datetime.timestamp}\n- Unix timestamp: ${user_datetime.unixTimestamp}\n\nWhen the user asks about "tonight", "today", "tomorrow", etc., use the date/time information above to determine what they mean. For example, if they ask "who's playing in the NBA tonight?", use the local date/time to determine which date "tonight" refers to, then use web search to find "NBA games [specific date]" or "NBA schedule [specific date]". Always provide direct answers using web search results - don't ask the user for clarification when you have the date/time information and can search for the answer.`;
