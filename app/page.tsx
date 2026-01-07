@@ -175,25 +175,20 @@ export default function Home() {
               className="w-full text-left group"
             >
               <div className="bg-[#141414] border border-white/5 rounded-2xl p-5 transition-all duration-200 hover:bg-[#1a1a1a] hover:border-white/10 hover:shadow-lg hover:shadow-black/20">
+                {/* Creator chip */}
+                <div className="flex items-center gap-2 mb-3">
+                  <img 
+                    src="/avatar-neuroswish.jpg" 
+                    alt="neuroswish" 
+                    className="w-5 h-5 rounded-full object-cover"
+                  />
+                  <span className="text-sm text-gray-400">neuroswish</span>
+                </div>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <p className="text-white font-medium text-lg leading-snug mb-2 line-clamp-2">
                       {card.question}
                     </p>
-                    {card.loading ? (
-                      <div className="flex items-center gap-2 text-gray-500">
-                        <div className="flex gap-1">
-                          <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
-                          <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></div>
-                          <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
-                        </div>
-                        <span className="text-sm">Thinking...</span>
-                      </div>
-                    ) : card.response ? (
-                      <p className="text-gray-400 text-sm line-clamp-2 leading-relaxed">
-                        {card.response.replace(/[#*`]/g, '').substring(0, 150)}...
-                      </p>
-                    ) : null}
                   </div>
                   <div className="flex flex-col items-end gap-2 shrink-0">
                     <span className="text-xs text-gray-600">{formatTimeAgo(card.createdAt)}</span>
